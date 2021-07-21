@@ -30,12 +30,19 @@ def main():
     parser.add_argument("-o","--offset",help="Adja meg az offset hex értékét",type=str)
     parser.add_argument("-fp","--fixpotlas",help="Adja meg a cím feltöltési értékét(default \'0\')",type=str)
 
+    parser.add_argument("-s","--skeleton",help="Ipv4 reverse shell script skeleton.(reverse_script.py)",action='store_true')
+
     args = parser.parse_args()
 
     global correct_pattern
     global fix_potlas
 
-    
+
+    if(args.skeleton):
+        Skeleton_script()
+
+
+
     if(args.fixpotlas):
         fix_potlas = args.fixpotlas[0]
 
@@ -156,6 +163,40 @@ def Pattern_gen(size):
                         break
     
     correct_pattern = pattern[:size]
+
+
+def Skeleton_script():
+    file = open("reverse_script.py","w+")
+
+    file.write("import socket\n")
+    file.write("import sys\n")
+    file.write("import os\n")
+    file.write("\n")
+    file.write("host = \"127.0.0.1\"\n")
+    file.write("port=12345\n")
+    file.write("\n")
+    file.write("client = socket.socket(socket.AF_INET,socket.SOCK_STREAM)\n")
+    file.write("client.connect((host,port))\n")
+    file.write("#client.recv(512)\n")
+    file.write("A=\'\\x90\'#*A méret\n")
+    file.write("\n")
+    file.write("#B=\"\"")
+    file.write("\n")
+    file.write("buf=\"\"\n")
+    file.write("\n")
+    file.write("#V=\'\\x90\'#Végén eltolás ha szükséges")
+    file.write("\n")
+    file.write("cim=\"\"\n")
+    file.write("\n")
+    file.write("payload=\"\"\n")
+    file.write("#client.send(payload.encode(\'latin-1\'))  #encode ha kell\n")
+    file.write("client.send(payload)\n")
+    file.write("#client.recv(512)\n")
+    file.write("client.close()\n")
+    file.close()
+
+    print("Elkészült a reverse_script.py fájl.")
+
 
 
 def Offset(offset):

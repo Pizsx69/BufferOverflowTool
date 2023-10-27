@@ -223,7 +223,7 @@ def Offset(offset):
         
     result = correct_pattern.find(reverse_offset)+len(reverse_offset)
 
-    print("Offset: ",result)
+    print("Offset: ",result-4)
 
 if __name__ == "__main__":
     main()

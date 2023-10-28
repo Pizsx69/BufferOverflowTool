@@ -57,6 +57,6 @@ if __name__ == '__main__':
 
     search_strings_in_file(file_path, search_strings)
     p = Sorting(list)
+    p.reverse()
     for x in p:
         print(x,end='')
-

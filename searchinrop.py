@@ -1,30 +1,19 @@
-#usage python searchinrop.py csrop.txt "push esp" "pop" 
 import argparse
 import numpy
  
 
 list = []
 def Sorting(lst):
- 
-    # list for storing the length of each string in list 
+
     lenlist=[]   
     for x in lst:
          lenlist.append(len(x))     
  
-    # return a list with the index of the sorted
-    # items in the list
     sortedindex = numpy.argsort(lenlist)  
  
-    # creating a dummy list where we will place the 
-    # word according to the sortedindex list 
     lst2 = ['dummy']*len(lst)   
  
-    # print(sortedindex,lenlist)
     for i in range(len(lst)):    
- 
-        # placing element in the lst2 list by taking the
-        # value from original list lst where it should belong 
-        # in the sorted list by taking its index from sortedindex
         lst2[i] = lst[sortedindex[i]]     
                                          
     return lst2
@@ -32,13 +21,14 @@ def Sorting(lst):
 # Driver code
 
 
-
+bad = ["call","jmp","leave","enter"]
 def search_strings_in_file(file_path, search_strings):
     try:
         with open(file_path, 'r') as file:
             for line in file:
                 if all(search_string in line for search_string in search_strings):
-                    list.append(line)
+                    if not any(search_string2 in line for search_string2 in bad):
+                        list.append(line)
                     #print(line, end='')
 
     except FileNotFoundError:

@@ -1,0 +1,366 @@
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <iomanip>
+
+
+using namespace std;
+
+
+
+//struct merkozes
+//{
+//	int g1, g2;
+//	string cs1, cs2;
+//};
+struct jatekos
+{
+	string name;
+	int gol;
+	int perc;
+};
+
+int main()
+{
+
+	ifstream be("C:/Users/Pizsi/Downloads/kezilabda.txt");
+	if (be.fail()) { cerr << "hiba"; system("pause"); exit(1); }
+	jatekos jatekosok[10];
+	int index = 0;
+
+
+	while (index < 10 && be >> jatekosok[index].name >> jatekosok[index].gol >> jatekosok[index].perc)
+	{
+		index++;
+	}
+
+	be.close();
+
+
+	int i = 0;
+	//Hány gólt dobott a csapat összesen a mérkőzésen ?
+
+	int osszes = 0;
+	for (i = 0;i < index;i++)
+		osszes = osszes + jatekosok[i].gol;
+
+	cout << "Osszes gol: " << osszes << endl;
+
+	//3, Melyik játékos dobta a legtöbb gólt ? (Ha több van elég az első) 	7 pont
+
+
+	int legtobb = 0;
+	for (i = 1;i < index;i++)
+	{
+		if (jatekosok[i].gol > jatekosok[legtobb].gol)
+			legtobb = i;
+
+	}
+
+	cout << "A legtobbet " << jatekosok[legtobb].name << " nevu jatekos dobta. Osszesen: " << jatekosok[legtobb].gol << " golt" << endl;
+
+
+	string names[10];
+
+	for (i = 0;i < index;i++)
+		names[i] = jatekosok[i].name;
+
+	string tmp;
+
+	for (i = 0;i < index;i++)
+	{
+		for (int j = i + 1;j < index;j++)
+		{
+			if (names[i] > names[j])
+			{
+				tmp = names[i];
+				names[i] = names[j];
+				names[j] = tmp;
+
+			}
+		}
+	}
+
+
+	for (i = 0;i < index;i++)
+		cout << names[i] << endl;
+	//string seged[16];
+//j = 0;
+//for (i = 0; i < db; i++)
+//{
+//	seged[j] = fordulo[i].cs1;
+//	j++;
+//	seged[j] = fordulo[i].cs2;
+//	j++;
+//}
+
+
+
+
+//string temp;
+//for (i = 0;i < 2*db;i++)
+//{
+//	for(j=i+1;j<2*db;j++)
+//		if (seged[i] > seged[j])
+//		{
+//			temp = seged[i];
+//			seged[i] = seged[j];
+//			seged[j] = temp;
+//		}
+//	
+//}
+
+
+	//merkozes fordulo[8];
+	//setlocale(LC_ALL, "");
+	////adatbeolvasás
+	//ifstream be("C:/Users/Pizsi/source/repos/vizsga_egyetem/x64/Debug/merkozes.txt");
+	//if (be.fail()) { cerr << "hiba"; system("pause"); exit(1); }
+	//int i = 0;
+
+	//while (!be.eof())
+	//{
+	//	be >> fordulo[i].g1;
+	//	be >> fordulo[i].g2;
+	//	be >> fordulo[i].cs1;
+	//	be >> fordulo[i].cs2;
+	//	i++;
+	//}
+	//be.close();
+	//int db = i;
+	////kiíratás
+	//cout.setf(ios::left);	//balra igazítás
+	//cout << " Eredmények" << endl << endl;
+	//cout << "\t" << setw(12) << "hazai cs." << setw(12) << "vendég cs." << "erdmény" << endl;
+	//for (i = 0; i < db; i++)
+	//{
+	//	cout << "\t" << setw(12) << fordulo[i].cs1 << setw(12) << fordulo[i].cs2 << setw(2)
+	//		<< fordulo[i].g1 << " : " << setw(2) << fordulo[i].g2 << endl;
+	//}
+	//cout << endl;
+
+	//int osszg = 0;
+	//for (i = 0;i < db;i++)
+	//{
+
+	//	osszg = osszg + fordulo[i].g1 + fordulo[i].g2;
+	//}
+	//cout << setprecision(2) << fixed;
+	//cout << " mérkőzések gólátlaga: " << float(osszg / db) << endl;
+
+	//int onyert = 0;
+	//for (i = 0;i < db;i++)
+	//{
+
+	//	if (fordulo[i].g1 > fordulo[i].g2)
+	//		onyert++;
+	//}
+	//cout << "\n otthon " << onyert << " csapat győzött" << endl;
+
+	//int maxi = 0;
+	//for (i = 1;i < db;i++) {
+	//	if ((fordulo[i].g1 + fordulo[i].g2) > (fordulo[maxi].g1 + fordulo[maxi].g2))
+	//		maxi = i;
+	//}
+
+	//cout << "\n legtöbb gól a(z) " << fordulo[maxi].cs1 << " " << fordulo[maxi].cs2
+	//	<< " mérkõzésen volt " << fordulo[maxi].g1 + fordulo[maxi].g2 << " gól" << endl;
+
+	//i = 0;
+	//while (i < db && fordulo[i].g1 == fordulo[i].g2)
+	//{
+	//	i++;
+	//}
+	//if (i < db)
+	//	cout << "Volt ";
+	//else
+	//	cout << "Nem volt ";
+	//cout << "döntetlen" << endl;
+
+	//i = 0;
+	//while (fordulo[i].cs1 != "KTE" && fordulo[i].cs2 != "KTE")
+	//	i++;
+	//if (fordulo[i].cs1 == "KTE")
+	//{
+	//	cout << " \n " << fordulo[i].g1;
+	//}
+	//else
+	//{
+	//	cout << "\n " << fordulo[i].g2;
+	//}
+
+	//cout << " gólt lőtt a KTE" << endl;
+
+	//string l3[13];
+	//int j = 0;
+	//for (i = 0;i < db;i++)
+	//{
+	//	if (fordulo[i].g1 >= 3) {
+
+	//		l3[j] = fordulo[i].cs1;
+	//		j++;
+	//	}
+	//	if (fordulo[i].g2 >= 3) {
+
+	//		l3[j] = fordulo[i].cs2;
+	//			j++;
+	//	}
+	//}
+
+	//int hg=0, vg=0;
+
+	//for (i = 0;i < db;i++)
+	//{
+	//	hg += fordulo[i].g1;
+	//	vg += fordulo[i].g2;
+	//}
+
+	//cout << "\n hazai gólok: " << hg << endl;
+	//cout << " vendég gólok: " << vg << endl;
+	//if (hg == vg)
+	//{
+	//	cout << " a hazai és vendég gólok száma egyenlõ";
+	//}
+	//else
+	//{
+	//	if (hg > vg)
+	//	{
+	//		cout << " a hazai golók";
+	//	}
+	//	else
+	//	{
+	//		cout << " a vendég golók";
+	//	}
+	//	cout << " száma a több";
+	//}
+	//cout << endl << endl;
+
+
+	//////rendezés közvetlen választással
+
+	//string seged[16];
+	//j = 0;
+	//for (i = 0; i < db; i++)
+	//{
+	//	seged[j] = fordulo[i].cs1;
+	//	j++;
+	//	seged[j] = fordulo[i].cs2;
+	//	j++;
+	//}
+
+
+
+
+	//string temp;
+	//for (i = 0;i < 2*db;i++)
+	//{
+	//	for(j=i+1;j<2*db;j++)
+	//		if (seged[i] > seged[j])
+	//		{
+	//			temp = seged[i];
+	//			seged[i] = seged[j];
+	//			seged[j] = temp;
+	//		}
+	//	
+	//} 
+
+	//ofstream ki("C:/Users/Pizsi/source/repos/vizsga_egyetem/x64/Debug/csapatok.txt");
+	//if (ki.fail()) { cerr << "hiba csapatok.txt"; system("pause"); exit(1); }
+
+	//for (i = 0;i < 2 * db;i++)
+	//{
+	//	cout << seged[i] << endl;
+	//	ki << seged[i] << endl;
+	//}
+	//ki.close();
+	//cout << endl<<endl;
+
+
+//	int tomb[15] = { 7,34,56,4,57,45,67,6,43,32,33,99,33,100,11 };
+//
+//	cout << "pontok" << endl;
+//
+//	int i;
+//	for (i = 0;i < 15;i++)
+//	{
+//		cout << i + 1 << ". hallgató: " << tomb[i] << endl;
+//	}
+//
+//	int sum = 0;
+//	for (i = 0;i < 15;i++)
+//		sum += tomb[i];
+//
+//	cout << "A csoport átlagpontszáma: " << (float)sum / 15 << endl;
+//
+//	// Eldöntés - döntsük el volt-e max. pontszám (100 pont)
+//	i = 0;
+//	while (i < 15 && tomb[i] >= 100)
+//		i++;
+//
+//
+//	if (i < 15)
+//		cout << "Volt 100 pontos dolgozat" << endl;
+//	else
+//		cout << "Nem volt 100 pontos dolgozat" << endl;
+//
+//	// Megszámlálás- Hányan feleltek meg a vizsgán? (pontszám > 50)
+//	int db50 = 0;
+//
+//	for (i = 0;i < 15;i++)
+//	{
+//		if (tomb[i] > 50)
+//			db50++;
+//	}
+//
+//	cout << "A megfeleltek száma: " << db50 << endl;
+//
+//// Kiválogatás- válogassuk ki a legalább 4-est elérõk (pontszám > 75) indexét
+//// és gyûjtsük egy új tömbbe õket, majd írassuk ki az új tömb elemeit! 
+//
+//	int newtomb[15];
+//	int db4=0;
+//	for (i = 0;i < 15;i++)
+//	{
+//		if (tomb[i] > 75)
+//		{
+//
+//			newtomb[db4] = i;
+//			db4++;
+//		}
+//	}
+//	cout << "4-est elérők sorszámai: " << endl;
+//
+//	for (i = 0;i < db4;i++)
+//		cout << newtomb[i]+1 << "." << endl;
+//		
+//
+//
+//
+//	// Minimum/Maximum kiválasztás - hányadik hallgató érte el a legkevesebb pontot
+//	// és az mennyi volt ?
+//
+//	int min = 0;
+//	for (i = 1;i < 15;i++)
+//	{
+//		if (tomb[i] < tomb[min])
+//			min = i;
+//
+//	}
+//	cout << "A leggyengébb eredmény " << tomb[min] << " sorszáma: " << min + 1 << endl;
+//
+//    // a tanuló sorszáma a kérdés
+//
+//	// Csere, kiíratás
+//	int s;
+//	s = tomb[2];
+//	tomb[2] = tomb[9];
+//	tomb[9] = s;
+//	for (i = 0;i < 15;i++)
+//	{
+//		cout << i + 1 << ". hallgató: " << tomb[i] << endl;
+//	}
+
+	system("pause");
+	return 0;
+}
